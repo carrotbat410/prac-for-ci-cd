@@ -13,53 +13,53 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#
-#      - name: Set up JDK 17
-#        uses: actions/setup-java@v3
-#        with:
-#          java-version: '17'
-#          distribution: 'adopt'
-#
-#      - name: Set up Local MySQL for Test
-#        uses: mirromutth/mysql-action@v1.1
-#        with:
-#          host port: 3306
-#          container port: 3306
-#          mysql database: 'lol-test'
-#          mysql root password: 'tmpPassword'
-#
-#      - name: Create application.properties for test
-#        run: |
-#          mkdir -p src/main/resources
-#          echo "${{ secrets.APPLICATION_PROPERTIES_FOR_TEST }}" > ./src/main/resources/application.properties
-#          cat ./src/main/resources/application.properties
-#
-#      - name: Build with Gradle
-#        run: ./gradlew build
-#
-#      - name: Test with Gradle
-#        run: ./gradlew test
-#
-##      - name: Check if tests passed
-##        id: check_tests
-##        run: echo "Tests Passed" >> $GITHUB_ENV
-#
-#      - name: Login to Docker Hub
-##        if: env.check_tests == 'Tests Passed'
-#        uses: docker/login-action@v2
-#        with:
-#          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-#          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-#
-#      - name: Build Docker image
-##        if: env.check_tests == 'Tests Passed'
-#        run: docker build . -t carrotbat410/spring-lol-repository
-#
-#      - name: Push Docker image
-##        if: env.check_tests == 'Tests Passed'
-#        run: docker push carrotbat410/spring-lol-repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Set up Local MySQL for Test
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          mysql database: 'lol-test'
+          mysql root password: 'tmpPassword'
+
+      - name: Create application.properties for test
+        run: |
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_PROPERTIES_FOR_TEST }}" > ./src/main/resources/application.properties
+          cat ./src/main/resources/application.properties
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Test with Gradle
+        run: ./gradlew test
+
+#      - name: Check if tests passed
+#        id: check_tests
+#        run: echo "Tests Passed" >> $GITHUB_ENV
+
+      - name: Login to Docker Hub
+#        if: env.check_tests == 'Tests Passed'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build Docker image
+#        if: env.check_tests == 'Tests Passed'
+        run: docker build . -t carrotbat410/spring-lol-repository
+
+      - name: Push Docker image
+#        if: env.check_tests == 'Tests Passed'
+        run: docker push carrotbat410/spring-lol-repository
 
 
       - name: Deploy to Server
@@ -71,7 +71,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            echo "hi1"
-#            docker pull carrotbat410/spring-lol-repository
-#            docker-compose down
-#            docker-compose up -d
+#            echo "hi1"
+            docker pull carrotbat410/spring-lol-repository
+            docker-compose down
+            docker-compose up -d
