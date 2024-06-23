@@ -72,8 +72,6 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             echo "hi"
-            cd /home/ubuntu
-            echo ls
 #            docker pull carrotbat410/spring-lol-repository
 #            docker-compose down
 #            docker-compose up -d
