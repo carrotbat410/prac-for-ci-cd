@@ -42,9 +42,9 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test
 
-      - name: Check if tests passed
-        id: check_tests
-        run: echo "Tests Passed" >> $GITHUB_ENV
+#      - name: Check if tests passed
+#        id: check_tests
+#        run: echo "Tests Passed" >> $GITHUB_ENV
 
       - name: Login to Docker Hub
         if: env.check_tests == 'Tests Passed'
