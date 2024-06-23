@@ -12,22 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: root_password
-          MYSQL_DATABASE: testdb
-          MYSQL_USER: testuser
-          MYSQL_PASSWORD: testpassword
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -53,10 +37,10 @@ jobs:
           cat ./src/main/resources/application.properties
 
       - name: Build with Gradle
-        run: ./gradlew build -Dspring.profiles.active=test
+        run: ./gradlew build
 
       - name: Test with Gradle
-        run: ./gradlew test -Dspring.profiles.active=test
+        run: ./gradlew test
 
       - name: Check if tests passed
         id: check_tests
