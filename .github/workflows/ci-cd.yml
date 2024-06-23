@@ -71,9 +71,9 @@ jobs:
 #          username: ${{ secrets.SERVER_USER }}
           username: ubuntu
           key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
+#          port: 22
           debug: true
-          timeout: 60
+          timeout: "60"
           script: |
             echo "hi"
             mkdir /home/ubuntu/hi
