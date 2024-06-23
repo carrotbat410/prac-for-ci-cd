@@ -8,7 +8,8 @@ WORKDIR /app
 COPY . /app
 
 # Install dependencies and build the application
-RUN ./gradlew build
+#RUN ./gradlew build
+RUN ./gradlew bootJar
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
