@@ -74,6 +74,7 @@ jobs:
           script: |
             echo "hi"
             echo ls
+            mkdir /home/ubuntu/hi
 #            docker pull carrotbat410/spring-lol-repository
 #            docker-compose down
 #            docker-compose up -d
