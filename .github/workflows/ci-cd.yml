@@ -71,7 +71,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-#            echo "hi1"
             docker pull carrotbat410/spring-lol-repository
             docker-compose down
             docker-compose up -d
