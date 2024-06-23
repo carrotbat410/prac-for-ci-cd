@@ -68,9 +68,11 @@ jobs:
 #        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
+#          username: ${{ secrets.SERVER_USER }}
+          username: ubuntu
           key: ${{ secrets.SERVER_SSH_KEY }}
-          port: ${{ secrets.SERVER_PORT }}
+          port: 22
+          debug: true
           script: |
             echo "hi"
             mkdir /home/ubuntu/hi
