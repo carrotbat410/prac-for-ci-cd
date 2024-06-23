@@ -38,12 +38,13 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Wait for MySQL to be healthy
-        run: |
-          echo "Waiting for MySQL to be healthy..."
-          while ! docker-compose exec mysql mysqladmin ping --silent; do
-            sleep 1
-          done
+      - name: Set up Local MySQL for Test
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          mysql database: 'lol-test'
+          mysql root password: ''
 
       - name: Create application.properties for test
         run: |
