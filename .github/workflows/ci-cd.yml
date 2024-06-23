@@ -1,0 +1,90 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_DATABASE: testdb
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: testpassword
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Wait for MySQL to be healthy
+        run: |
+          echo "Waiting for MySQL to be healthy..."
+          while ! docker-compose exec mysql mysqladmin ping --silent; do
+            sleep 1
+          done
+
+      - name: Create application.properties for test
+        run: |
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_PROPERTIES_FOR_TEST }}" > ./src/main/resources/application.properties
+          cat ./src/main/resources/application.properties
+
+      - name: Build with Gradle
+        run: ./gradlew build -Dspring.profiles.active=test
+
+      - name: Test with Gradle
+        run: ./gradlew test -Dspring.profiles.active=test
+
+      - name: Check if tests passed
+        id: check_tests
+        run: echo "Tests Passed" >> $GITHUB_ENV
+
+      - name: Login to Docker Hub
+        if: env.check_tests == 'Tests Passed'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build Docker image
+        if: env.check_tests == 'Tests Passed'
+        run: docker build . -t carrotbat410/spring-lol-repository
+
+      - name: Push Docker image
+        if: env.check_tests == 'Tests Passed'
+        run: docker push carrotbat410/spring-lol-repository
+
+      - name: Deploy to Server
+        if: env.check_tests == 'Tests Passed'
+        uses: appleboy/ssh-action@v0.5.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            docker pull carrotbat410/spring-lol-repository
+            docker-compose down
+            docker-compose up -d
