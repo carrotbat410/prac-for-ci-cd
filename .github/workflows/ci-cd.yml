@@ -33,11 +33,12 @@ jobs:
       - name: Create application.properties for test
         run: |
           mkdir -p src/main/resources
-          echo "${{ secrets.APPLICATION_PROPERTIES_FOR_TEST }}" > ./src/main/resources/application.properties
-          cat ./src/main/resources/application.properties
+          echo "${{ secrets.APPLICATION_PROPERTIES_FOR_TEST }}" > src/main/resources/application.properties
+          cat src/main/resources/application.properties
 
       - name: Build with Gradle
         run: ./gradlew build
+#        run: ./gradlew bootJar
 
       - name: Test with Gradle
         run: ./gradlew test
