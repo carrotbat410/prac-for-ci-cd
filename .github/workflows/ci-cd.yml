@@ -33,16 +33,16 @@ jobs:
       - name: Create application.properties for test
         run: |
           mkdir -p src/main/resources
-          echo "${{ secrets.APPLICATION_PROPERTIES_FOR_TEST }}" > src/main/resources/application.properties
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" > src/main/resources/application.properties
+          echo "${{ secrets.APPLICATION_PROPERTIES_PROD }}" > src/main/resources/application-prod.properties
+          echo "${{ secrets.APPLICATION_PROPERTIES_SECRET }}" > src/main/resources/application-secret.properties
           cat src/main/resources/application.properties
 
       - name: Build with Gradle
-        run: ./gradlew build
-#        run: ./gradlew bootJar
+        run: SPRING_PROFILES_ACTIVE=secret ./gradlew build
 
-      - name: Test with Gradle
-        run: ./gradlew test
-
+#      - name: Test with Gradle
+#        run: ./gradlew test
       #      - name: Check if tests passed
       #        id: check_tests
       #        run: echo "Tests Passed" >> $GITHUB_ENV
