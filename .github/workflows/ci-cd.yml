@@ -28,7 +28,7 @@ jobs:
           host port: 3306
           container port: 3306
           mysql database: 'lol-test'
-          mysql root password: 'tmpPassword'
+          mysql root password: ''
 
       - name: Create application.properties for test
         run: |
