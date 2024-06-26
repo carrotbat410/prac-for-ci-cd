@@ -38,14 +38,15 @@ jobs:
           echo "${{ secrets.APPLICATION_PROPERTIES_SECRET }}" > src/main/resources/application-secret.properties
           cat src/main/resources/application.properties
 
-      - name: Build with Gradle
-        run: SPRING_PROFILES_ACTIVE=secret ./gradlew build
-
       - name: Test with Gradle
-        run: ./gradlew test
+        run: SPRING_PROFILES_ACTIVE=secret ./gradlew test
       - name: Check if tests passed
         id: check_tests
         run: echo "Tests Passed" >> $GITHUB_ENV
+
+      - name: Build with Gradle
+        if: env.check_tests == 'Tests Passed'
+        run: SPRING_PROFILES_ACTIVE=secret ./gradlew build
 
       - name: Login to Docker Hub
         if: env.check_tests == 'Tests Passed'
