@@ -1,6 +1,6 @@
 ### Application properties ###
-application.properties
-src/test/resources/application.properties
+/src/main/resources
+/src/test/resources/application.properties
 
 MEMO.txt
 HELP.md

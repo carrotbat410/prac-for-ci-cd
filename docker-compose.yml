@@ -3,11 +3,11 @@ services:
     image: carrotbat410/spring-lol-repository:latest
     ports:
       - "8080:8080"
-    environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/lol-prod
+#    environment: application-prod.properties에서 전달함.
+#      SPRING_PROFILES_ACTIVE: prod
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/lol-prod
 #      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: tmpPassword
+#      SPRING_DATASOURCE_PASSWORD: tmpPassword
     depends_on:
     - mysql-db
 

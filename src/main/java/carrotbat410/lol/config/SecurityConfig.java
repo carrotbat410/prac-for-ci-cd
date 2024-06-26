@@ -59,6 +59,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         //TODO actuator 접근 제어하기.
+                        .requestMatchers("/").permitAll() //TODO 테스트용 
                         .requestMatchers("/login", "/join", "/error", "/actuator/**", "/boards").permitAll() //! 임시로 /error 이렇게 둠. JWTFilter의 shouldNotFilter에도 등록해야함
                         .requestMatchers("/summoner", "/summoners", "/user", "/team", "/board").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/admin").hasRole("ADMIN") //.requestMatchers(HttpMethod.GET,"/admin") 이런식으로 필요하면 특정 HttpMethod도 조합 가능.
