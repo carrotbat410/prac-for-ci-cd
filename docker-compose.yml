@@ -21,6 +21,7 @@ services:
 
 
   mysql-db:
+    container_name: mysql-db
     image: mysql:latest
     environment:
       MYSQL_DATABASE: lol-prod
@@ -30,6 +31,8 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - spring-lol-network
 
 volumes:
   mysql-data:
