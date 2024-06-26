@@ -40,14 +40,9 @@ jobs:
 
 #GitHub Actions에서 steps.<step_id>.conclusion은 해당 단계의 결과를 나타냄.
 # conclusion 값은 GitHub Actions 자체에서 할당하며, 가능한 값 종류는 success / failure / cancelled / skipped 이 있음.
-
       - name: Test with Gradle
         id: gradle-test
         run: SPRING_PROFILES_ACTIVE=secret ./gradlew test
-
-      - name: Check if tests passed
-        if: steps.gradle-test.conclusion == 'success'
-        run: echo "Tests Passed" >> $GITHUB_ENV
 
       - name: Build with Gradle
         if: steps.gradle-test.conclusion == 'success'
