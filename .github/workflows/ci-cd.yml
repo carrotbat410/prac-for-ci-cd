@@ -72,8 +72,18 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             echo "hi"
-            sudo -s
             docker pull carrotbat410/spring-lol-repository
+            docker-compose down
+            docker-compose up -d
+#        uses: appleboy/ssh-action@v1.0.3
+#        with:
+#          host: ${{ secrets.SERVER_HOST }}
+#          username: ubuntu
+#          key: ${{ secrets.SERVER_SSH_KEY }}
+#          script: |
+#            echo "hi"
+#            sudo -s
+#            docker pull carrotbat410/spring-lol-repository
 #            docker-compose down
 #            docker-compose up -d
 #            /home/ubuntu/deploy.sh
