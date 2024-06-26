@@ -73,8 +73,9 @@ jobs:
           script: |
             echo "hi"
             docker pull carrotbat410/spring-lol-repository
-            docker-compose down
-            docker-compose up -d
+            /home/ubuntu/deploy.sh
+#            docker-compose down
+#            docker-compose up -d
 #        uses: appleboy/ssh-action@v1.0.3
 #        with:
 #          host: ${{ secrets.SERVER_HOST }}
