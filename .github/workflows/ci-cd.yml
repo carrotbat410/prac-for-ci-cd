@@ -71,6 +71,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             echo "hi"
+            sudo -s
             docker pull carrotbat410/spring-lol-repository
             docker-compose down
             docker-compose up -d
