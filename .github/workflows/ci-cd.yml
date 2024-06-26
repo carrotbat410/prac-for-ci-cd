@@ -76,4 +76,4 @@ jobs:
             docker pull carrotbat410/spring-lol-repository
 #            docker-compose down
 #            docker-compose up -d
-            /home/ubuntu/deploy.sh
+#            /home/ubuntu/deploy.sh
