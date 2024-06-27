@@ -2,7 +2,7 @@
 
 IS_APP1=$(docker ps | grep container1)
 DEFAULT_CONF=" /etc/nginx/nginx.conf"
-MAX_RETRIES=20
+MAX_RETRIES=30
 
 check_service() {
   local RETRIES=0
@@ -39,12 +39,12 @@ if [ -z "$IS_APP1" ];then
     exit 1
   fi
 
-  echo "4. nginx 재실행"
-  sudo cp /etc/nginx/nginx.app1.conf /etc/nginx/nginx.conf
+#  echo "4. nginx 재실행"
+#  sudo cp /etc/nginx/nginx.app1.conf /etc/nginx/nginx.conf
 #  sudo cp /etc/nginx/sites-available/nginx.app1.conf /etc/nginx/sites-available/default
-  sudo nginx -s reload
+#  sudo nginx -s reload
 
-  echo "5. APP2 컨테이너 내리기"
+  echo "4. APP2 컨테이너 내리기"
   docker-compose stop app2
   docker-compose rm -f app2
 
@@ -63,12 +63,12 @@ else
       exit 1
     fi
 
-  echo "4. nginx 재실행"
-  sudo cp /etc/nginx/nginx.app2.conf /etc/nginx/nginx.conf
+#  echo "4. nginx 재실행"
+#  sudo cp /etc/nginx/nginx.app2.conf /etc/nginx/nginx.conf
 #  sudo cp /etc/nginx/sites-available/nginx.app2.conf /etc/nginx/sites-available/default
-  sudo nginx -s reload
+#  sudo nginx -s reload
 
-  echo "5. APP2 컨테이너 내리기"
+  echo "4. APP2 컨테이너 내리기"
   docker-compose stop app1
   docker-compose rm -f app2
 fi
