@@ -73,5 +73,5 @@ jobs:
           script: |
             docker pull carrotbat410/spring-lol-repository
             /home/ubuntu/deploy.sh
-#          tag:none인 이미지 지우는 명령어
             sudo docker rmi $(sudo docker images -f "dangling=true" -q)
+#          tag:none인 이미지 지우는 명령어
