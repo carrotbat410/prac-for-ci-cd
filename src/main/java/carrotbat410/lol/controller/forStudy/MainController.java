@@ -1,5 +1,6 @@
 package carrotbat410.lol.controller.forStudy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.Iterator;
 
+@Slf4j
 @RestController
 public class MainController {
 
@@ -21,6 +23,8 @@ public class MainController {
 
     @GetMapping("/")
     public String forCiCdTest() {
+
+        log.info("hi--------------------------------");
         String port = environment.getProperty("local.server.port");
         return "hi, current server port: " + port;
 
