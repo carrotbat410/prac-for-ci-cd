@@ -24,7 +24,7 @@ public class MainController {
     @GetMapping("/")
     public String forCiCdTest() {
 
-        log.info("hi--------------------------------");
+        log.info("hi---------------------------------");
         String port = environment.getProperty("local.server.port");
         return "hi, current server port: " + port;
 
