@@ -1,5 +1,7 @@
 package carrotbat410.lol.controller.forStudy;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,9 +16,14 @@ import java.util.Iterator;
 @RestController
 public class MainController {
 
+    @Autowired
+    Environment environment;
+
     @GetMapping("/")
     public String forCiCdTest() {
-        return "hi";
+        String port = environment.getProperty("local.server.port");
+        return "hi, current server port: " + port;
+
     }
 
     @GetMapping("/main/{id}")
