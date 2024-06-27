@@ -1,7 +1,6 @@
 #!/bin/bash
 
 IS_APP1=$(docker ps | grep container1)
-DEFAULT_CONF=" /etc/nginx/nginx.conf"
 MAX_RETRIES=30
 
 check_service() {
