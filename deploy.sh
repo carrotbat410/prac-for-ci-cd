@@ -24,50 +24,45 @@ check_service() {
 }
 
 if [ -z "$IS_APP1" ];then
-  echo "### App2 => APP1 ###"
+  echo "### App3 App4 => APP1 App2 ###"
 
   echo "1. App1 이미지 받기"
   docker-compose pull app1
 
-  echo "2. App1 컨테이너 실행"
-  docker-compose up -d app1
+  echo "2. App1 App2 컨테이너 실행"
+  docker-compose up -d app1 app2
 
   echo "3. health check"
-  if ! check_service "http://127.0.0.1:8081"; then
-    echo "APP1 health check 가 실패했습니다."
+  if ! check_service "http://127.0.0.1:8081" || ! check_service "http://127.0.0.1:8082"; then
+    echo "APP1 또는 APP2 health check 가 실패했습니다."
     exit 1
   fi
 
-#  echo "4. nginx 재실행"
-#  sudo cp /etc/nginx/nginx.app1.conf /etc/nginx/nginx.conf
-#  sudo cp /etc/nginx/sites-available/nginx.app1.conf /etc/nginx/sites-available/default
-#  sudo nginx -s reload
-
-  echo "4. APP2 컨테이너 내리기"
-  docker-compose stop app2
-  docker-compose rm -f app2
+  echo "4. APP3 APP4 컨테이너 내리기"
+  docker-compose stop app3 app4
+  docker-compose rm -f app3 app4
 
 else
-  echo "### App1 => App2 ###"
+  echo "### App1 App2 => App3 App4 ###"
 
-  echo "1. App2 이미지 받기"
-  docker-compose pull app2
+  echo "1. App3 이미지 받기"
+  docker-compose pull app3
 
-  echo "2. App2 컨테이너 실행"
-  docker-compose up -d app2
+  echo "2. App3 App4 컨테이너 실행"
+  docker-compose up -d app3 app4
 
   echo "3. health check"
-  if ! check_service "http://127.0.0.1:8082"; then
-      echo "App2 health check 가 실패했습니다."
-      exit 1
-    fi
+  if ! check_service "http://127.0.0.1:8083" || ! check_service "http://127.0.0.1:8084"; then
+    echo "APP3 또는 APP4 health check 가 실패했습니다."
+    exit 1
+  fi
 
 #  echo "4. nginx 재실행"
 #  sudo cp /etc/nginx/nginx.app2.conf /etc/nginx/nginx.conf
 #  sudo cp /etc/nginx/sites-available/nginx.app2.conf /etc/nginx/sites-available/default
 #  sudo nginx -s reload
 
-  echo "4. APP2 컨테이너 내리기"
-  docker-compose stop app1
-  docker-compose rm -f app2
+  echo "4. APP1 APP2 컨테이너 내리기"
+  docker-compose stop app1 app2
+  docker-compose rm -f app1 app2
 fi

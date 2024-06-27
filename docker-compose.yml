@@ -19,6 +19,25 @@ services:
     networks:
       - spring-lol-network
 
+  app3:
+    container_name: container3
+    image: carrotbat410/spring-lol-repository:latest
+    ports:
+      - "8083:8080"
+    depends_on:
+      - mysql-db
+    networks:
+      - spring-lol-network
+
+  app4:
+    container_name: container4
+    image: carrotbat410/spring-lol-repository:latest
+    ports:
+      - "8084:8080"
+    depends_on:
+      - mysql-db
+    networks:
+      - spring-lol-network
 
   mysql-db:
     container_name: mysql-db
