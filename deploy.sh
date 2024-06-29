@@ -57,11 +57,6 @@ else
     exit 1
   fi
 
-#  echo "4. nginx 재실행"
-#  sudo cp /etc/nginx/nginx.app2.conf /etc/nginx/nginx.conf
-#  sudo cp /etc/nginx/sites-available/nginx.app2.conf /etc/nginx/sites-available/default
-#  sudo nginx -s reload
-
   echo "4. APP1 APP2 컨테이너 내리기"
   docker-compose stop app1 app2
   docker-compose rm -f app1 app2
