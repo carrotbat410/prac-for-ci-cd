@@ -71,6 +71,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            sudo -s
             /home/ubuntu/deploy.sh
             docker rmi -f $(docker images -f "dangling=true" -q)
 #          tag:none인 이미지 지우는 명령어
